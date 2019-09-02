@@ -30,3 +30,5 @@ config/web_readme.md
 .tmp/
 *.sqlite
 
+*.swp
+*.swo

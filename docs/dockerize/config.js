@@ -18,8 +18,8 @@ var config = {
   /**
    * Cluster mode
    */
-  enableCluster: false,
-  numCPUs: os.cpus().length,
+  enableCluster: true,
+  numCPUs: os.cpus().length - 1,
 
   /*
    * server configure
@@ -35,10 +35,13 @@ var config = {
   debug: process.env.NODE_ENV === 'development',
   // page mode, enable on development env
   pagemock: process.env.NODE_ENV === 'development',
+
   // session secret
-  sessionSecret: 'cnpmjs.org test session secret',
+  sessionSecret: 'ones.ai',
+
   // max request json body size
-  jsonLimit: '10mb',
+  jsonLimit: '1000mb',
+
   // log dir name
   logdir: path.join(dataDir, 'logs'),
   // update file template dir
@@ -58,14 +61,15 @@ var config = {
     message: 'request frequency limited, any question, please contact fengmk2@gmail.com',
   },
 
-  enableCompress: false, // enable gzip response or not
+  enableCompress: true, // enable gzip response or not
 
   // default system admins
   admins: {
     // name: email
-    fengmk2: 'fengmk2@gmail.com',
-    admin: 'admin@cnpmjs.org',
-    dead_horse: 'dead_horse@qq.com',
+    chenyuan: 'chenyuan@ones.ai',
+    //fengmk2: 'fengmk2@gmail.com',
+    //admin: 'admin@cnpmjs.org',
+    //dead_horse: 'dead_horse@qq.com',
   },
 
   // email notification for errors
@@ -89,7 +93,8 @@ var config = {
   packagePageContributorSearch: true, // package page contributor link to search, default is true
 
   // max handle number of package.json `dependencies` property
-  maxDependencies: 200,
+  maxDependencies: 2000,
+
   // backup filepath prefix
   backupFilePrefix: '/cnpm/backup/',
 
@@ -147,7 +152,7 @@ var config = {
   enablePrivate: false,
 
   // registry scopes, if don't set, means do not support scopes
-  scopes: [ '@cnpm', '@cnpmtest', '@cnpm-test' ],
+  scopes: [ '@ones-ai' ],
 
   // some registry already have some private packages in global scope
   // but we want to treat them as scoped private packages,
@@ -230,23 +235,6 @@ var config = {
   // envelope format please see https://github.com/npm/registry/blob/master/docs/hooks/hooks-payload.md#payload
   globalHook: null,
 };
-
-if (process.env.NODE_ENV !== 'test') {
-  var customConfig;
-  if (process.env.NODE_ENV === 'development') {
-    customConfig = path.join(root, 'config', 'config.js');
-  } else {
-    // 1. try to load `$dataDir/config.json` first, not exists then goto 2.
-    // 2. load config/config.js, everything in config.js will cover the same key in index.js
-    customConfig = path.join(dataDir, 'config.json');
-    if (!fs.existsSync(customConfig)) {
-      customConfig = path.join(root, 'config', 'config.js');
-    }
-  }
-  if (fs.existsSync(customConfig)) {
-    copy(require(customConfig)).override(config);
-  }
-}
 
 mkdirp.sync(config.logdir);
 mkdirp.sync(config.uploadDir);

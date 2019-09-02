@@ -1,10 +1,11 @@
-FROM node:12
+FROM node:10.16.2-alpine
+
 MAINTAINER Bono Lv <lvscar  {aT} gmail.com>
 
 # Working enviroment
 ENV \
     CNPM_DIR="/var/app/cnpmjs.org" \
-    CNPM_DATA_DIR="/var/data/cnpm_data" 
+    CNPM_DATA_DIR="/var/data/cnpm_data"
 
 RUN mkdir  -p ${CNPM_DIR}
 
@@ -25,4 +26,3 @@ VOLUME ["/var/data/cnpm_data"]
 
 # Entrypoint
 CMD ["node", "dispatch.js"]
-
