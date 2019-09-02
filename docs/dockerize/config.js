@@ -29,13 +29,6 @@ var config = {
   webPort: 7002,
   bindingHost: '0.0.0.0', // binding on 0.0.0.0 for outside of container access
 
-  // debug mode
-  // if in debug mode, some middleware like limit wont load
-  // logger module will print to stdout
-  debug: process.env.NODE_ENV === 'development',
-  // page mode, enable on development env
-  pagemock: process.env.NODE_ENV === 'development',
-
   // session secret
   sessionSecret: 'ones.ai',
 
@@ -85,11 +78,11 @@ var config = {
     }
   },
 
-  logoURL: 'https://os.alipayobjects.com/rmsportal/oygxuIUkkrRccUz.jpg', // cnpm logo image url
+  logoURL: '', // cnpm logo image url
   adBanner: '',
   customReadmeFile: '', // you can use your custom readme file instead the cnpm one
-  customFooter: '', // you can add copyright and site total script html here
-  npmClientName: 'cnpm', // use `${name} install package`
+  customFooter: '<footer>Ones.ai</footer>', // you can add copyright and site total script html here
+  npmClientName: 'npm', // use `${name} install package`
   packagePageContributorSearch: true, // package page contributor link to search, default is true
 
   // max handle number of package.json `dependencies` property
@@ -186,7 +179,7 @@ var config = {
   // none: do not sync any module, proxy all public modules from sourceNpmRegistry
   // exist: only sync exist modules
   // all: sync all modules
-  syncModel: 'none', // 'none', 'all', 'exist'
+  syncModel: 'exist', // 'none', 'all', 'exist'
 
   syncConcurrency: 1,
   // sync interval, default is 10 minutes
@@ -209,7 +202,7 @@ var config = {
 
   // badge subject on http://shields.io/
   badgePrefixURL: 'https://img.shields.io/badge',
-  badgeSubject: 'cnpm',
+  badgeSubject: 'npm',
 
   // custom user service, @see https://github.com/cnpm/cnpmjs.org/wiki/Use-Your-Own-User-Authorization
   // when you not intend to ingegrate with your company's user system, then use null, it would
