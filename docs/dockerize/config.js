@@ -135,7 +135,7 @@ var config = {
   downloadRedirectToNFS: false,
 
   // registry url name
-  registryHost: '127.0.0.1:7001',
+  registryHost: 'npm.ones.team',
 
   /**
    * registry mode config
@@ -203,7 +203,7 @@ var config = {
 
   // changes streaming sync
   syncChangesStream: false,
-  handleSyncRegistry: 'http://127.0.0.1:7001',
+  handleSyncRegistry: 'http://npm.ones.team',
 
   // badge subject on http://shields.io/
   badgePrefixURL: 'https://img.shields.io/badge',
