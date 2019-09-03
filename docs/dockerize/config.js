@@ -7,6 +7,7 @@ var fs = require('fs');
 var os = require('os');
 
 var version = require('../package.json').version;
+const DefaultUserService = require('../user-service');
 
 var root = path.dirname(__dirname);
 var dataDir = process.env.CNPM_DATA_DIR ;
@@ -24,9 +25,10 @@ var config = {
   /*
    * server configure
    */
-
   registryPort: 7001,
-  webPort: 7002,
+
+  //webPort: 7002, 关闭 web 界面，不会出现 web 界面
+  //
   bindingHost: '0.0.0.0', // binding on 0.0.0.0 for outside of container access
 
   // session secret
@@ -147,6 +149,9 @@ var config = {
   // registry scopes, if don't set, means do not support scopes
   scopes: [ '@ones-ai' ],
 
+  // Only allowed to publish packages to scope mode.
+  forcePublishWithScope: true,
+
   // some registry already have some private packages in global scope
   // but we want to treat them as scoped private packages,
   // so you can use this white list.
@@ -207,7 +212,7 @@ var config = {
   // custom user service, @see https://github.com/cnpm/cnpmjs.org/wiki/Use-Your-Own-User-Authorization
   // when you not intend to ingegrate with your company's user system, then use null, it would
   // use the default cnpm user system
-  userService: null,
+  userService: new DefaultUserService(),
 
   // always-auth https://docs.npmjs.com/misc/config#always-auth
   // Force npm to always require authentication when accessing the registry, even for GET requests.
